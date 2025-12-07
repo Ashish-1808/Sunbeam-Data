@@ -1,0 +1,193 @@
+Revise JSP syntax with examples
+URL rewriting
+JSP Page Directive
+JSP include directive
+JSP Actions
+- forward
+- include
+- param
+
+JSTL
+
+JSP using Java Bean (Business logic layer)
+- Refer to extra help
+
+Enter MVC
+ -what is it ?
+ - why
+ -custom implementation
+Reference case study - Healthcare patient appointment
+
+
+
+Revise 
+1.	page vs pageContext vs pageScope
+page - 
+- JSP implicit object
+- can  be accessed from scriptlets & expression
+- instance of current tranliated page class instance
+Eg - test.jsp ->test_jsp.java -> class : test_jsp
+- instance of test_jsp class
+
+pageContext
+-  accessible from scriptlets , expressions & EL syntax
+- instance of PageContext <- PageContextImpl (supplied by Jasper)
+- used  for
+ - accessing all other JSP implicit objects
+ - to add page scoped attribute
+Eg. 
+<%
+pageContext.setAttribute("abc",1234);
+Integer val=(Integer)pageContext.getAttribute("abc");
+out.print(val);
+%>
+Is there any other way to access page scoped attribute?
+
+pageScope
+- EL implicit object
+- map of page scoped attributes
+Eg.${pageScope.abc}
+OR
+${abc}
+
+
+2.	Name JSP Scripting elements
+- scriptlet, expression , declaration
+expression | EL syntax
+
+3.	Name JSP implicit objects available from scriptlets n expression
+- out,request,response,session,config,application,page,pageContext,exception
+- 
+4. 	Name EL implicit objects available from EL syntax(${...})
+- param , pageScope,requestScope,sessionScope,applicationScope,cookie,initParam
+
+5 Solve
+How will you render the value of a cookie by the name "abc" , using EL syntax
+- ${cookie.abc.value}
+
+How will you render the value of a cookie by the name JSESSIONID , using EL syntax
+-${cookie.JSESSIONID.value}
+
+OR 
+server side session id
+- ${pageContext.session.id}
+
+6. Solve : what will be o/p 
+${pageContext.session.maxInactiveInterval}
+- 1800
+
+7. Given -
+<%
+ session.setAttribute(“user_info”,customer);
+%>
+What will this do ? 
+${sessionScope.user_info}
+- Renders session.getAttribute(“user_info”) | sessionScope.get(“user_info”)
+customer.toString -> to the clnt
+
+ 8. Solve
+${pageContext.session.id}
+ - renders session id to clnt 
+
+9. ${param.product_id}
+- request.getParameter("product_id") | param.get("product_id")
+
+10. How to invalidate session ?
+Options : 
+1. Scriptlet : 
+<%
+ session.invalidate();
+%> 
+2. JSP expr : <%= session.invalidate() %> 
+3. EL syntax : ${pageContext.session.invalidate} 
+4. EL syntax : ${pageContext.session.invalidate()}
+5.  EL syntax : ${session.invalidate()}
+
+- pageContext.getSession().invalidate()
+NOTE - IDE shows error(red cross) - ignore it ! 
+Choose correct options : 1,4
+
+11. Guess the o/p
+${pageContext.request.contextPath}
+- /day6.1
+
+
+
+1. URL rewriting along with HttpSession
+Problem - HttpSession based session tracking fails in the absence of cookies.
+(Since WC does not get session id from client in form of a cookie - JSESSIONID)
+
+Solution
+- Instead of using cookie based session id , embed it in evry outgoing URL
+
+What is URL rewriting (encoding) ?
+- Embeding session id in the URL
+Why 
+- To create a web app , which is independent of cookies.
+
+Servlet API for URL rewriting
+Methods of HttpServletResponse
+1. public String encodeURL(String url)
+- WC encodes the URL with value of session ID , if required.
+- otherwise suppresses URL encoding
+Use case - In case of clicking on the link / button (ie. user action is involved)
+
+
+2. public String encodeRedirectURL(String url)
+- WC encodes the URL with value session ID , if required.
+- otherwise suppresses URL encoding
+Use case - In case of redirect scenario
+
+Eg.
+In case of cookie accepted -
+http://localhost:8080/day6.1/details.jsp?mesg=Successful%20Login
+
+In case of blocked cookies
+http://localhost:8080/day6.1/details.jsp;jsessionid=C77A8F16BC5C228AF95B016C3FBA7E01
+
+http://localhost:8080/day6.1/logout.jsp;jsessionid=D0645BBB00E3B5A5D5A4AB71C3D5871A
+
+
+
+Refer - eclipse project day6.1 
+
+
+
+
+Any problems 
+- Vulnerable to security attack
+- session stealing (session fixation) attack
+
+Solution
+- Always use HTTPS instead of HTTP , along with URL rewriting.
+(to ensure end to end encryption)
+
+
+JSP Actions
+1. <jsp:forward page="URI of the next page"/>
+- Used for RequestDispatching 
+ - forward scenario
+
+2. <jsp:include page="URI of the next page"/>
+- Used for RequestDispatching 
+ - include scenario
+- contents are included , in run time (request processing)
+- indicates request scope
+
+3. Nested tag - within forward | include
+<jsp:param name="paramName" value="paramValue"/>
+- adds specified request parameter in the current request.
+
+
+
+Refer 
+readme_jsp.txt
+"Regarding MVC.txt"
+
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+MVC development Steps
+1. Create new project(eg online voting) | continue with HealthCare - patient view
+
+2. Good MVC practice
+- DO NOT give Client , a direct access to the view layer
+- Copy the JSPs under
+ - <WEB-INF>/views.
+
+3. Configure welcome page as 
+- <WEB-INF>/views/login.jsp
+
+4. After submitting the form 
+URI - /ctx_path/login
+  
