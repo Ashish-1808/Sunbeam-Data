@@ -1,0 +1,114 @@
+Hibernate Dev steps
+1. import hibernate_template (ready made Maven Project)
+- download hibernate dependencies , in Maven local repo. (<user_home>/.m2/repository)
+
+2. Configure hibernate.cfg.xml 
+ - src/main/resources (build path)
+ - DB configuration + more props.
+
+
+3. Create HibernateUtils class
+- build SessionFactory.
+How ?
+Add - 
+static {
+	sessionFactory=new Configuration() //empty config
+				.configure() //loads the config from hibernate.cfg.xml
+				.buildSessionFactory();
+				
+}
+- ensures singleton instance of SF (SessionFactory) 
+- created at class loading time
+- extends AutoCloseable.
+
+4. Create Main class (p.s.v.main(....))
+- to test bootstrapping of hibernate.
+
+5. Create Hibernate managed POJO (entity class)
+ - Hibernate will manage entity life cycle
+- 2 ways for instructions
+5.1 XML - legacy
+ - Per entity class , had to create Entity.hbm.xml
+OR
+Modern alternative
+- annotations
+ - Majority of the annotations , will be imported from JPA
+
+Recommendations
+- ID property(which Maps to PK) in Entity class (eg . - User class : userId )
+ should be reference type 
+eg . Long 
+
+- Provide default , arg-less constructor(for reflection)
+- Add getters & setters.
+
+5.2 Mandatory annotations
+1. @Entity
+ - class level annotation , to declare entity class
+2. @Id
+ - Can be added at field level | property (getter) level
+- Adds Primary Key constraint on DB table column.
+
+6. Add <mapping> entry in hibernate.cfg.xml
+- per entity
+
+7. Run TestHibernate
+ - as Java application
+- getSF -> class loading -> static block
+-> configure() 
+-> Hibernate checks - if table already exists for User entity
+- creates the table.
+
+8. Add Optional annotations
+@Table(name="users") - to declare table name
+.....
+
+9. Create Hibernate based DAO layer (for CRUD)
+- DAO interface
+- DAO implementation class
+For User registration.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Important props
+1. hibernate.dialect
+- Used by hibernate to translate HQL | JPQL  (DB independent) -> DB specific SQL
+- not required in hibernate 6.x onwards
+
+2. hibernate.hbm2ddl.auto - update
+- Hibernate uses this prop for ORM
+- With "update" 
+ - it will create new table if none exists for the Entity class
+ - otherwise continues with existing one.
+- use in dev phase
+Once your tables (schema) is finalized 
+ - remove it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

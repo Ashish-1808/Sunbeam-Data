@@ -1,0 +1,273 @@
+Day 1
+1. Today's work
+
+Everyone MUST 
+- create 2 servlets
+- first one deploy using xml tags
+- second deploy with annotation
+- first one - lazy
+- second one - eager.
+
+Web development Steps
+1. Download , extract , STS 4 .
+For Mac Users 
+- refer to "day1_data\day1_help\Adding Web developer tools in STS 4 for Mac Users.txt"
+Perform these steps.
+Then continue with remaining steps .
+2. Download & Extract Apache Tomcat Web server 
+- "web java prerequisites\Web Server n Jakarta EE docs\apache-tomcat-10.1.26.7z"
+- Save it under Study Materials | Software folder 
+- Add tomcat server to web java STS 4 workspace.
+How ? 
+
+Steps
+1. Change the perspective to Java EE
+ Window -> Perspective -> Change Perspective -> Other -> Java EE
+2. Choose Servers
+ - It will show you - NO servers
+3. Click on the link
+ - Choose Apache vendor & select Apache Tomcat 10.1
+4. Next -> Browse & Choose Tomcat Installation directory (Tomcat Home)
+5. Confirm JRE - JDK 21
+6. Finish
+7. Choose Apache Tomcat & start it. 
+8. Launch Server console & see if Tomcat is up & running.
+9. Create a dynamic web project ,to deploy monolithic web app (server side will render the view :HTTP  response content type : text/html)
+10. Configure web.xml , with welcome file list.
+11. Add index.html : welcome page (home page) with welcome message
+
+12. Start Server side application
+Right click on web project -> Run as -> Servler side app -> choose server -> finish
+You can check the server console.
+
+IDE will automatically launch chrome (default web browser) & send a request to the web application.
+
+eg : 
+Request URL - http://localhost:8080/day1.1
+response  : index.html will be rendered.
+
+13. Create servlets & test.
+
+
+Day 2
+In the combined Lab 
+1. import day2.2 , in the workspace 
+ - as existing Java Project
+ - Edit DB password from DBUtils
+
+2. We will walk through the entire code & revise along with Inspect tools
+
+Mandatory Assignment 
+3. Solve 
+Refer to 
+- "day2_data\day2_help\HTML pages\calc.html
+
+Write a Calculator Servlet , to render the result of the specified operation.
+- Servlet should be deployed using annotation
+singleton & eager.
+
+4. Optional Assignment
+Involves Products & Categories tables in DB.
+index.html
+Add a form to accept the category name
+After submitting the form , 
+Display all product details from the selected category.
+
+Important Revision help
+"\day2_data\day2_help\sequence.txt"
+"day2_data\day2_help\diagrams\Servlet Life Cycle.png"
+"day2_data\day2_help\diagrams\servlet-jdbc-integration.png"
+"day2_data\day2_help\page navigation\page navigation summary.png"
+"day2_data\day2_help\state management techniques\cookie.png"
+
+
+
+Day 3
+
+1. import day3.1 , in the workspace 
+ - as existing Java Project
+ - Edit DB password from DBUtils
+
+2. Complete code walk through, 
+- from login to logout
+
+3. Later 
+-revise it on your own & ask questions tomorrow.
+
+4. Complete pending work.
+(Mandatory)
+
+5. Optional assignment I
+Add Cancel Link in Patient Dashoard page.
+- You should not be able to cancel today's appointments
+(Later appointments can be cancelled)
+- If valid 
+ - Simply change appointment status to CANCELLED (soft delete)
+- Redirect client to Patient Dashoard page, with suitable message(success | failed)
+
+6. Optional assignment II
+Redirect user to DoctorDashboard page - in case of ROLE_DOCTOR
+Display his/her Speciality & consultation fees
+Render list of upcoming appointments.
+Add Completed link , so that doctor will be able to mark the appointment "COMPLETED" , after it's done.
+Add Logout link , to log out user.
+
+
+
+
+
+Day 4
+Revise First
+1. import day4.1 
+- Healthcare case study (Patient view)
+ - added cancel appointment feature
+
+2. import day4.2 
+-Revise 
+- DB independent web application using ServletConfig
+Refer 
+web.xml
+DBUtils
+UserDaoImpl
+AuthenticationServlet
+
+3. IMPORTANT
+import day4.3 
+-To Revise 
+-Request Dispatching
+ - forward
+ - include
+
+4. import day4.4 
+- It's complete Healthcare case study  . with more details.
+-To Revise
+- Web application event listener
+- Confirmation of thread pool based concurrency
+
+Solve Mandatory Assignment
+1. Solve 
+Refer to 
+- "day2_data\day2_help\HTML pages\calc.html
+
+Write a Calculator Servlet , to only COMPUTE  the result of the specified operation.
+Store - operands(numbers), operation & result in to java object (Hint - attribute) 
+Then forward the client to DisplayServlet & render result.
+
+2. After understanding forward , replace forward by include 
+- Spot the differences.
+
+
+
+Day 5
+
+1. import day5_jsp , in your workspace.
+We will revise basic JSP syntax
+- scripting elements 
+- page directive
+
+2. Solve JSP assignment
+"day5_data\JSP basic assignment.png"
+
+
+Day 6
+
+Mandatory work 
+
+1. Download & extract 
+"Template Projects\hibernate_template.7z"
+1.1 import "hibernate_template" as existing Maven Project in your workspace.
+
+Steps
+From STS4 IDE
+ File - import - Maven -Existing Maven Project - Browse -
+template projects\hibernate_template
+Finish
+
+Refer - "day6_data\day6_help\hibernate help\screenshot-0.png"
+
+1.2 Force update the Maven , to download the dependencies. 
+
+Right click on the project - Maven - Update Project - select the check box 'Force Update'
+
+Refer - "day6_data\day6_help\hibernate help\screenshot-1.png"
+
+You need a stable net connection here to download dependencies.
+This will create Maven local repository folder (under user home /.m2) - 1st time only .
+It will download hibernate dependencies(hibernate JARs , mysql connector jar) and cache it under Maven local repository.
+Then onwards you don't need a net connection (till spring !)
+
+1.3 Right click on the project - Run As - Maven Build . 
+- Add goals as
+- clean compile
+Run .
+Refer to screenshot
+"day6_data\day6_help\hibernate help\screenshot-2.png"
+"day6_data\day6_help\hibernate help\screenshot-3.png"
+
+
+2. import day6.1 , to revise 
+- JSP basic assignment solution , with URL rewriting
+- JSP include directive
+- JSP forward & include actions
+
+3. import healthcare_mvc 
+- For custom implementation of MVC pattern
+(It's still incomplete)
+- Do refer to 
+login.jsp
+AuthenticationServlet
+
+Refer for CCEE
+"day6_data\day6_help\mvc-help\Regarding MVC.txt"
+"day6_data\day6_help\mvc-help\diagrams\MVC implementation flow.png"
+"day6_data\day6_help\mvc-help\diagrams\why mvc.png"
+
+4. Optional weekend assignment
+Complete fresh scenario
+Online Voting with Voter & Admin roles
+- Use Servlets.
+Refer to flow diagram
+"git\webjava\case study\voting.7z"
+I have also supplied 
+- SQL 
+Try it out !
+
+
+Day 7
+1. import hibernate_template in the workspace
+- Force Update Maven Project
+- Run as Mavem 
+ - Goals : clean compile
+
+2. Mandatory  assignment (best way to learn & underatand)
+
+Add Product details in DB (can be used later in eCommerce project)
+DB name - sunbeam_ecommerce
+Table name - products
+
+Typical product details -
+product id : Long (auto increment)
+name : string (unique) : varchar(50)
+product description : string : varchar(300)
+manufacture date : LocalDate
+price : double
+available quantity : int
+category : enum (STATIONARY,SHOES,GRAINS,OIL...)
+
+2.1 Test bootstrapping of hibernate
+2.2 Test automatic table creation
+2.3 Save product details.
+
+Revise
+3. import healthcare_mvc 
+ - Servlet , JDBC , JSP based healthcare (patient view)
+
+4. import day7_hibernate 
+- to revise hibernate steps.
+
+
+
+
+
+
+

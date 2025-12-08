@@ -1,0 +1,52 @@
+MVC(Model II)  development steps
+case study - HealthCare - Patient View
+
+0. Create (or copy) from Model I architecture (servlet based case study)
+
+1. Standard Technique
+ - Do not keep view layer(JSPs) directly accessible to the client, since they contain results
+ - It should be accessed only via Servlets Controller.
+ - Add JSPs under a sub folder under <WEB-INF>
+Eg- <WEB-INF> \ views
+-login.jsp, book_appointment.jsp.....
+
+2. Instead of adding login.jsp , with login form , directly under WEB-INF , keep it under 
+ <WEB-INF> \ views
+
+3. Specify login.jsp as welcome page.(in web.xml)
+- welcome file : /WEB-INF/views/login.jsp 
+URL - http://host:port/ctx_path/
+Resp - login.jsp
+
+4. After submitting login form
+URL - http://host:port/ctx_path/authenticate
+
+In case of invalid login ,FORWARD the client to login.jsp
+ high lighted with error message.
+
+In case valid login -
+REDIRECT client to dashboard page (as per the role)
+
+5. URL -http://host:port/ctx_path/patient_dashboard
+-> PatientDashboardServlet -> Add the appointment list , patient details under ..... scope
+-> forward it to patient_dashboard.jsp
+-> Render the resp.
+
+6. In case of "Cancel"  link/button clicked
+-> new request with URL - http://host:port/ctx_path/appointments?action=cancel&id=appointment id
+->Sumitted to AppointmentServlet - doGet 
+-> check action -> cancel -> cancel appointment & REDIRECT to patient_dashboard servlet.
+
+7. In case of Book Appointment Link
+-> render book_appointment.jsp
+-> Submit the form to AppointmentServlet (POST)
+-> In case of error(appointment un available) navigate back to book_appointment.jsp
+-> in case of success , REDIRECT to dashboard page.
+
+8. In case of Log Out link clicked ,
+- Navigate to Logout Servlet .
+-Redirect to login.jsp , with suitable message.
+
+
+
+ 
